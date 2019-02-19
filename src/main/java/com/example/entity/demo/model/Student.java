@@ -3,8 +3,7 @@ package com.example.entity.demo.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -21,15 +20,16 @@ public class Student {
     private String name;
 
     @Column(name = "DateOfBirth")
-    private Date DateOfBirth;
+    private LocalDate DateOfBirth;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "student")
     private List<StudentModule> studentModules;
     public Student() { }
 
-    public Student(String name, Date dateOfBirth) {
+    public Student(String name, LocalDate dateOfBirth, List<StudentModule> studentModules) {
         this.name = name;
         DateOfBirth = dateOfBirth;
+        this.studentModules = studentModules;
     }
 
     public Long getId() {
@@ -48,11 +48,11 @@ public class Student {
         this.name = name;
     }
 
-    public Date getDateOfBirth() {
+    public LocalDate getDateOfBirth() {
         return DateOfBirth;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(LocalDate dateOfBirth) {
         DateOfBirth = dateOfBirth;
     }
 
@@ -62,6 +62,7 @@ public class Student {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", DateOfBirth=" + DateOfBirth +
+                ", studentModules=" + studentModules +
                 '}';
     }
 
